@@ -116,8 +116,10 @@ const Header = () => {
                 />
               </p>
               <p className="cursor-pointer lg:hidden block">
-                <BsShop size={25} className="text-green-600 inline-block" />
-                <span className="align-middle ml-2">Shops</span>
+                <Link to="/shops">
+                  <BsShop size={25} className="text-green-600 inline-block" />
+                  <span className="align-middle ml-2">Shops</span>
+                </Link>
               </p>
               <p className="cursor-pointer sm:hidden block">
                 <FiUser size={25} className="text-green-600 inline-block" />
