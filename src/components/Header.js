@@ -115,7 +115,7 @@ const Header = () => {
                   className=" text-black inline-block"
                 />
               </p>
-              <p className="cursor-pointer lg:hidden block">
+              <p className="ncursor-pointer lg:hidden block">
                 <Link to="/shops">
                   <BsShop size={25} className="text-green-600 inline-block" />
                   <span className="align-middle ml-2">Shops</span>
