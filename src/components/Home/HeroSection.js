@@ -11,6 +11,7 @@ const HeroSection = () => {
         <img
           className="w-full sm:h-full h-40 object-cover object-center"
           src={image}
+          loading="lazy"
         />
         <div className="absolute sm:top-5 top-2 left-1/2 -translate-x-1/2 text-white">
           <div className="w-full tracking-wider whitespace-nowrap md:space-y-2 font-semibold text-center">

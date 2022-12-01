@@ -90,10 +90,10 @@ const ProductDetails = () => {
             <div className="w-full">
               <label className="font-light text-base block">Quantity</label>
               <div className="flex justify-start items-center gap-x-5 w-full">
-                <div className="xl:space-x-5 md:space-x-3 space-x-2 text-center">
+                <div className="md:space-x-3 space-x-2 text-center">
                   <button
                     type="button"
-                    className={`rounded-full xl:px-12 inline-block md:px-7 px-3 py-2 border-2 text-center border-gray-300 ${
+                    className={`rounded-full xl:px-10 inline-block md:px-7 px-3 py-2 border-2 text-center border-gray-300 ${
                       product?.quantity == 0 && "cursor-not-allowed"
                     }`}
                     onClick={() => dispatch(RemoveFromCart(product))}
@@ -104,7 +104,7 @@ const ProductDetails = () => {
                   <span>{product?.quantity}</span>
                   <button
                     type="button"
-                    className="rounded-full xl:px-12 inline-block md:px-7 px-3 py-2 border-2 border-gray-300 text-center"
+                    className="rounded-full xl:px-10 inline-block md:px-7 px-3 py-2 border-2 border-gray-300 text-center"
                     onClick={() => dispatch(addToCart(product))}
                   >
                     <AiOutlinePlus size={20} />

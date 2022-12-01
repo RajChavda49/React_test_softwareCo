@@ -1,11 +1,11 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { AiOutlineBars } from "react-icons/ai";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,10 +13,15 @@ import { addToFaviroute, addToCart } from "../../redux/ShopDetailSlice";
 import { Link } from "react-router-dom";
 
 const Slider = ({ items, name }) => {
+  const [isEnd, setIsEnd] = useState(false);
+
   const dispatch = useDispatch();
+
+  const swiperRef = useRef(null);
 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+
   return (
     <section className="space-y-5 relative">
       {/* title */}
@@ -40,6 +45,7 @@ const Slider = ({ items, name }) => {
       />
 
       <Swiper
+        ref={swiperRef}
         breakpoints={{
           200: {
             slidesPerView: 1,
@@ -64,6 +70,7 @@ const Slider = ({ items, name }) => {
         keyboard={{
           enabled: true,
         }}
+        onSlideChange={({ isEnd }) => setIsEnd(isEnd)}
         onSwiper={(swiper) => {
           setTimeout(() => {
             swiper.params.navigation.prevEl = prevRef.current;
@@ -138,7 +145,9 @@ const Slider = ({ items, name }) => {
             </div>
           </SwiperSlide>
         ))}
-        <div className="h-full absolute lg:block hidden top-0 z-10 right-0 bg-gradient-to-l from-white to-transparent w-40" />
+        <div
+          className={`h-full ${isEnd && "hidden"} absolute top-0 z-10 right-0 bg-gradient-to-l from-white to-transparent w-40`}
+        />
       </Swiper>
     </section>
   );
