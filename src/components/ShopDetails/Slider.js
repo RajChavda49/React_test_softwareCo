@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { addToFaviroute } from "../../redux/ShopDetailSlice";
+import { addToFaviroute, addToCart } from "../../redux/ShopDetailSlice";
 import { Link } from "react-router-dom";
 
 const Slider = ({ items, name }) => {
@@ -20,8 +20,8 @@ const Slider = ({ items, name }) => {
   return (
     <section className="space-y-5 relative">
       {/* title */}
-      <div className="flex items-center justify-between">
-        <p className="md:text-3xl text-xl font-bold rounded-3xl decoration-4 underline underline-offset-8 decoration-colorGreen">
+      <div className="flex items-center justify-between relative">
+        <p className="md:text-3xl text-xl font-bold rounded-3xl after:absolute after:-bottom-2 after:left-0 after:w-20 after:h-2 after:bg-colorGreen after:rounded-lg">
           {name}
         </p>
         <button className="text-colorGreen w-fit font-semibold">
@@ -38,35 +38,31 @@ const Slider = ({ items, name }) => {
         className="absolute z-20 p-3 cursor-pointer font-semibold  top-1/2 -translate-y-1/2 shadow-xl rounded-full md:-right-10 -right-3 w-10 h-10 bg-white"
         ref={nextRef}
       />
+
       <Swiper
-        navigation={{
-          prevEl: prevRef?.current,
-          nextEl: nextRef?.current,
-        }}
-        loop={false}
-        pagination={false}
-        scrollbar={false}
         breakpoints={{
           200: {
             slidesPerView: 1,
             spaceBetween: 10,
-            centeredSlides: true,
           },
           768: {
             slidesPerView: 2,
             spaceBetween: 10,
-            centeredSlides: false,
           },
           1024: {
             slidesPerView: 3,
             spaceBetween: 20,
-            centeredSlides: false,
           },
           1280: {
             slidesPerView: 5,
-            spaceBetween: 10,
-            centeredSlides: false,
+            spaceBetween: 30,
           },
+        }}
+        loop={false}
+        slidesPerGroup={1}
+        spaceBetween={30}
+        keyboard={{
+          enabled: true,
         }}
         onSwiper={(swiper) => {
           setTimeout(() => {
@@ -77,62 +73,72 @@ const Slider = ({ items, name }) => {
             swiper.navigation.update();
           });
         }}
-        mousewheel={true}
-        keyboard={true}
-        modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-        className="relative h-full border-none outline-none"
+        navigation={{
+          prevEl: prevRef?.current,
+          nextEl: nextRef?.current,
+        }}
+        modules={[Keyboard, Pagination, Navigation, Mousewheel]}
+        className="wfull h-full"
       >
         {items.map((item) => (
           <SwiperSlide
             key={item?.id}
-            className="space-y-5 md:h-swiperHeight h-[28rem] max-w-[15rem] relative text-black bg-white shadow-xl group cursor-pointer rounded-md"
+            className="lg:h-swiperHeight md:h-[31rem] h-[28rem] lg:max-w-[15rem] relative text-black bg-white shadow-xl group cursor-pointer rounded-md"
           >
-            <Link to={`/productdetails/${item.id}`}>
+            <Link
+              to={`/productdetails/${item.id}`}
+              state={{ shopDetail: item }}
+              onClick={() => window.scrollTo({ behavior: "smooth", top: 0 })}
+            >
               <img
                 src={item?.img}
-                className="h-fit object-cover w-full object-center"
+                className="md:h-fit h-60 object-cover w-full object-center"
+                loading="lazy"
               />
-              <p className="text-black font-semibold group-hover:text-colorGreen text-lg px-3">
+              <p className="text-black font-semibold group-hover:text-colorGreen text-lg px-3 pt-3">
                 {item?.name}
               </p>
-              <div className="px-3 w-full space-y-5 font-semibold absolute bottom-4 left-0">
-                <p className="text-xl">
-                  ${item?.price}{" "}
-                  <span className="font-light text-lg">
-                    (${item?.pricePerKg}/KG)
-                  </span>
-                </p>
-                <button
-                  type="button"
-                  className="w-full active:scale-95 transition-all ease-linear duration-100 text-center lg:p-4 p-2 rounded-full text-white uppercase bg-colorGreen"
-                >
-                  add to cart
-                </button>
-              </div>
 
               <AiOutlineBars
                 size={25}
                 className="text-colorGreen bg-white cursor-pointer z-20 shadow-xl rounded-full h-10 w-10 p-2 text-center absolute top-3 left-3"
               />
-              {item?.faviroute ? (
-                <FaHeart
-                  size={25}
-                  onClick={() => {
-                    dispatch(addToFaviroute(item));
-                  }}
-                  className="absolute top-3 z-20 right-4 cursor-pointer text-colorGreen h-10 w-10 p-2"
-                />
-              ) : (
-                <FiHeart
-                  size={25}
-                  onClick={() => dispatch(addToFaviroute(item))}
-                  className="absolute top-3 z-20 right-4 cursor-pointer text-colorGreen h-10 w-10 p-2"
-                />
-              )}
             </Link>
+            {item?.faviroute ? (
+              <FaHeart
+                size={25}
+                onClick={() => {
+                  dispatch(addToFaviroute(item));
+                }}
+                className="absolute top-3 z-20 right-5 cursor-pointer text-colorGreen h-10 w-10 p-2"
+              />
+            ) : (
+              <FiHeart
+                size={25}
+                onClick={() => dispatch(addToFaviroute(item))}
+                className="absolute top-3 z-20 right-5 cursor-pointer text-colorGreen h-10 w-10 p-2"
+              />
+            )}
+            <div className="px-3 w-full font-semibold absolute bottom-4 left-0">
+              <p className="text-xl pb-5">
+                ${item?.price}{" "}
+                <span className="font-light text-lg">
+                  (${item?.pricePerKg}/KG)
+                </span>
+              </p>
+              <button
+                type="button"
+                className="w-full active:scale-95 transition-all ease-linear duration-100 text-center lg:p-4 p-2 rounded-full text-white uppercase bg-colorGreen"
+                onClick={() => {
+                  dispatch(addToCart(item));
+                }}
+              >
+                add to cart
+              </button>
+            </div>
           </SwiperSlide>
         ))}
-        <div className="h-full absolute top-0 z-10 right-0 bg-gradient-to-l from-white to-transparent w-40" />
+        <div className="h-full absolute lg:block hidden top-0 z-10 right-0 bg-gradient-to-l from-white to-transparent w-40" />
       </Swiper>
     </section>
   );

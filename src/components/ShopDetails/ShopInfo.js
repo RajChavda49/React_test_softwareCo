@@ -2,7 +2,7 @@ import React from "react";
 import { AiOutlineStar } from "react-icons/ai";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import img from "../../assets/images/bgShopdetails.jpg";
 import logo from "../../assets/images/logoShopdetails.png";
 
@@ -19,12 +19,16 @@ const ShopInfo = () => {
         className="object-cover object-center w-full xl:h-full h-[30rem]"
       />
       {/* show navigation */}
-      <div className="text-white absolute md:top-10 top-5 md:left-16 left-5 flex items-center md:gap-x-5 gap-x-3 font-medium md:text-xl">
-        <span>Home</span>
+      <div className="text-white z-20 absolute md:top-10 top-5 md:left-16 left-5 flex items-center md:gap-x-5 gap-x-3 font-medium md:text-xl">
+        <span>
+          <Link to="/">Home</Link>
+        </span>
         <span>
           <MdKeyboardArrowRight size={25} />
         </span>
-        <span>Shop</span>
+        <Link to="/shop">
+          <span>Shop</span>
+        </Link>
         <span>
           <MdKeyboardArrowRight size={25} />
         </span>

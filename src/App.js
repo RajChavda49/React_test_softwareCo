@@ -7,10 +7,12 @@ import HeroSection from "./components/Home/HeroSection";
 import ProductDetails from "./pages/ProductDetails";
 import ShopDetails from "./pages/ShopDetails";
 import Shops from "./pages/Shops";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
     <BrowserRouter>
+      <Toaster />
       <Header />
       <Routes>
         <Route path="/" element={<HeroSection />} />

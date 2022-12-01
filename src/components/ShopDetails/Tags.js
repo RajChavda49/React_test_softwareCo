@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
-const Tags = () => {
-  const [activeTag, setActiveTag] = useState("All");
+const Tags = ({ setActiveTag, activeTag }) => {
   return (
     <div className="flex  items-center justify-between">
       <div />
@@ -175,7 +174,9 @@ const Tags = () => {
             />
           </svg>
 
-          <span className="lg:ml-2 ml-1 inline-block font-bold">Vegetables</span>
+          <span className="lg:ml-2 ml-1 inline-block font-bold">
+            Vegetables
+          </span>
         </p>
       </div>
       <MdKeyboardArrowRight

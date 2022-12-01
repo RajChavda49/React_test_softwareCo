@@ -11,7 +11,7 @@ module.exports = {
         toColorTag: "#FBCE2E",
       },
       height: {
-        swiperHeight: "30rem !important",
+        swiperHeight: "28rem !important",
       },
     },
   },

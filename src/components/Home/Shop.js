@@ -12,6 +12,7 @@ const Shop = ({ shop }) => {
       <img
         className="h-60 w-full object-cover object-center rounded-tr-lg rounded-tl-lg"
         src={shop.img}
+        loading="lazy"
       />
       <div className="space-y-3 px-5 py-3">
         <p className="xl:text-2xl text-lg font-semibold">{shop.title}</p>
